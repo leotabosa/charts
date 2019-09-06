@@ -1,12 +1,5 @@
 <template>
   <div>
-      <div>
-        <span style="padding-left: 10px">Desvantagens: Não tem muitos tipos de gráficos.</span>
-        <span style="padding-left: 10px">Vantagens: Exportação em PNG e SVG, toolbar com zoom e etc.</span>
-        <p style="padding-left: 10px">Opções de estilização: Cores, gradiente, temas monocromáticos (como abaixo), animações,
-        </p>
-      </div>
-      <hr>
       <div :class="$style.libWrapper">
           <div :class="$style.chartWrapper">
             <div :class="$style.chartTitle">Título</div>
@@ -26,7 +19,13 @@
             <apexchart type=bar height=300 :options="bar.chartOptions" :series="bar.series" />
           </div>
           <div :class="$style.chartWrapper">
+            <apexchart type=heatmap height=300 width=500 :options="heatmap.chartOptions" :series="heatmap.series" />
+          </div>
+          <div :class="$style.chartWrapper">
             <apexchart type=radialBar height=300 :options="semicircle.chartOptions" :series="semicircle.series" />
+          </div>
+          <div :class="$style.chartWrapper">
+            <apexchart type=line height=300 :options="line.chartOptions" :series="line.series" />
           </div>
       </div>
   </div>
@@ -94,7 +93,7 @@ export default {
         },
         chart: {
           height: 350,
-          type: 'bar',
+          type: 'bar' 
         },
         plotOptions: {
           bar: {
@@ -269,21 +268,184 @@ export default {
               opacityFrom: 1,
               opacityTo: 1,
               stops: [0, 50, 53, 91]
+          },
+        },
+      }
+    },
+    heatmap:{
+      series: [{
+            name: 'Metric1',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric2',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric3',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric4',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric5',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric6',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric7',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric8',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: 'Metric9',
+            data: generateData(18, {
+              min: 0,
+              max: 90
+            })
+          }
+        ],
+        chartOptions: {
+          dataLabels: {
+            enabled: false
+          },
+          colors: ["#008FFB"],
+
+          title: {
+            text: 'HeatMap Chart (Single color)'
+          }
+        }
+      },
+      line:{
+        series: [{
+            name: "Session Duration",
+            data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+          },
+          {
+            name: "Page Views",
+            data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+          },
+          {
+            name: 'Total Visits',
+            data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+          }
+        ],
+        chartOptions: {
+          chart: {
+            zoom: {
+              enabled: false
             },
           },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            width: [5, 7, 5],
+            curve: 'straight',
+            dashArray: [0, 8, 5]
+          },
+
+          title: {
+            text: 'Page Statistics',
+            align: 'left'
+          },
+          markers: {
+            size: 0,
+            
+            hover: {
+              sizeOffset: 6
+            }
+          },
+          xaxis: {
+            categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+              '10 Jan', '11 Jan', '12 Jan'
+            ],
+          },
+          tooltip: {
+            y: [{
+              title: {
+                formatter: function (val) {
+                  return val + " (mins)"
+                }
+              }
+            }, {
+              title: {
+                formatter: function (val) {
+                  return val + " per session"
+                }
+              }
+            }, {
+              title: {
+                formatter: function (val) {
+                  return val;
+                }
+              }
+            }]
+          },
+          grid: {
+            borderColor: '#f1f1f1',
+          }
         }
+      }
     }
-  }
-},
+  },
   components:{
     apexchart: VueApexCharts
   }
 }
+function generateData(count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = 'w' + (i + 1).toString();
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+        series.push({
+          x: x,
+          y: y
+        });
+        i++;
+      }
+      return series;
+    }
 </script>
 
 <style module>
     .libWrapper{
       width: 98vw;
+      margin-bottom: 50px;
       display:flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -297,7 +459,6 @@ export default {
       box-shadow: 1px 1px 2px 1px lightgray;
     }
     .chartTitle{
-      
       padding-top: 5px;
       padding-left: 30px;
     }
