@@ -1,2 +1,3 @@
 # charts
-Charts trial
+
+- Echarts = Não foi possível utilizar a toolbox dos gráficos.
