@@ -16,7 +16,7 @@
     "@vue/cli-service": "3.9.x",
     "@vue/eslint-config-prettier": "5.0.x",
     "@vue/eslint-config-standard": "4.0.x",
-    "apexcharts": "^3.8.5",
+    "apexcharts": "^3.24.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.x",
     "babel-plugin-component": "1.1.1",
